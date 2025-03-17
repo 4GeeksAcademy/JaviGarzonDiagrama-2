@@ -60,7 +60,7 @@ def serialize(self):
 class Media (db.Model):
     __tablename__ = 'Media'  
     id = Column(Integer, primary_key=True)
-    type= Column(Enum)
+    type= Column(Enum, nullable=False)
     url = Column(String(100), nullable=False)
     post_id = Column(Integer, ForeignKey('post.id'), nullable=False)
 
