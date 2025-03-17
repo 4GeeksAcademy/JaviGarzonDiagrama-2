@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, String, Integer, ForeignKey, Enum
 from sqlalchemy.orm import relationship
+import enum
 
 
 db = SQLAlchemy()
@@ -57,10 +58,18 @@ def serialize(self):
             "user_id": self.user_id,            
         }
 
+class MediaType(enum.Enum):
+    text = "text"
+    video = "video"
+    image = "image"
+
+
 class Media (db.Model):
-    __tablename__ = 'Media'  
+    __tablename__ = 'media'  
+      
     id = Column(Integer, primary_key=True)
-    type= Column(Enum, nullable=False)
+    type = Column(Enum(MediaType), nullable=False) 
+    
     url = Column(String(100), nullable=False)
     post_id = Column(Integer, ForeignKey('post.id'), nullable=False)
 
